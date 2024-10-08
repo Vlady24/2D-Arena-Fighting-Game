@@ -14,15 +14,15 @@ public class GamePanel extends JPanel implements Runnable {
     private final int tileSize = originalTileSize * scale; // 48 x 48 tile
     private final int maxScreenCol = 16; // 4:3
     private final int maxScreenRow = 12; // ratio
-    private final int screenWidth = tileSize * maxScreenCol; // 1152 pixels
-    private final int screenHeight = tileSize * maxScreenRow; // 864 pixels
+    private final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    private final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // FPS
     private final int fps = 60; // Framerate per second
     private final Color backgroundColor = new Color(71, 35, 14); // Background color
 
-    public CollisionChecker collisionChecker = new CollisionChecker(this);
-    public BlockManager blockM = new BlockManager(this);
+    private CollisionChecker collisionChecker = new CollisionChecker(this);
+    private BlockManager blockM = new BlockManager(this);
     private Thread gameThread;
     private Movement movementHandler = new Movement();
     private Player player = new Player(this, movementHandler);
@@ -114,5 +114,15 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public int getMaxScreenRow() {
         return maxScreenRow;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+
+        return collisionChecker;
+    }
+
+    public BlockManager getBlockM() {
+
+        return blockM;
     }
 }

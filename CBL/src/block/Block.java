@@ -22,4 +22,8 @@ public class Block {
         this.collision = collision;
     }
     
+    public boolean getCollision() {
+
+        return collision;
+    }
 }

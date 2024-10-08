@@ -10,8 +10,8 @@ import main.Movement;
 
 public class Player extends Entity {
     
-    GamePanel gp;
-    Movement movementHandler;
+    private GamePanel gp;
+    private Movement movementHandler;
 
     public Player(GamePanel gp, Movement movementHandler) {
 
@@ -20,14 +20,13 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
-
-        collisionArea = new Rectangle(8, 16, gp.getTileSize() - 16, gp.getTileSize() - 16);
+        setCollisionArea(8, 16, gp.getTileSize() - 16,  gp.getTileSize() - 16);
     }
 
     public void setDefaultValues() {
 
-        x = 350;
-        y = 400;
+        x = 150;
+        y = 250;
         speed = 4;
         direction = "down";
     }
@@ -38,33 +37,61 @@ public class Player extends Entity {
             || movementHandler.getLeftPressed() || movementHandler.getRightPressed()) {
 
             if (movementHandler.getUpPressed()) {
+
                 direction = "up";
-                y = y - speed;
             }  
             if (movementHandler.getDownPressed()) {
+                
                 direction = "down";
-                y = y + speed;
             }  
             if (movementHandler.getLeftPressed()) {
+
                 direction = "left";
-                x = x - speed;
             }  
             if (movementHandler.getRightPressed()) {
+
                 direction = "right";
-                x = x + speed;
             }
 
+            // Checking player collision with block
             collisionOn = false;
-            gp.collisionChecker.checkTile(this);
+            gp.getCollisionChecker().checkTile(this);
 
-            spriteCounter++;
-            if (spriteCounter > 15) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+            // If collision is false, then the character can move
+            if (!collisionOn) {
+
+                switch (direction) {
+
+                    case "up":
+
+                        y = y - speed;
+                        break;
+                    case "down":
+                        
+                        y = y + speed;
+                        break;
+                    case "left":
+                        
+                        x = x - speed;
+                        break;
+                    case "right":
+
+                        x = x + speed;
+                        break;
                 }
-                spriteCounter = 0;
+            }
+            incrementSpriteCounter();
+            if (getSpriteCounter() > 15) {
+                if (getSpriteNum() == 1) {
+
+                    setSpriteNum(2);
+
+                } else if (getSpriteNum() == 2) {
+
+                    setSpriteNum(1);
+                }
+                
+                setSpriteCounter(0);
             }
 
         }
@@ -78,36 +105,36 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = up1;
-                } else if (spriteNum == 2) {
+                } else if (getSpriteNum() == 2) {
                     image = up2;
                 }
                     
                 break;
         
             case "down":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = down1;
-                } else if (spriteNum == 2) {
+                } else if (getSpriteNum() == 2) {
                     image = down2;
                 }
 
                 break;
             
             case "left":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = left1;
-                } else if (spriteNum == 2) {
+                } else if (getSpriteNum() == 2) {
                     image = left2;
                 }
                 
                 break;
 
             case "right":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = right1;
-                } else if (spriteNum == 2) {
+                } else if (getSpriteNum() == 2) {
                     image = right2;
                 }
 

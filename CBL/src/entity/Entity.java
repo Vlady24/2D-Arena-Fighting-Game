@@ -8,9 +8,10 @@ public class Entity {
     public int x;
     public int y;
     public int speed;
-    public int spriteCounter = 0; // trb private sau nu??
-    public int spriteNum = 1;
+    private int spriteCounter = 0; // trb private sau nu??
+    private int spriteNum = 1;
 
+    // SPRITES
     public BufferedImage up1;
     public BufferedImage up2;
     public BufferedImage down1;
@@ -22,7 +23,42 @@ public class Entity {
 
     public String direction;
 
-    public Rectangle collisionArea;
+    private Rectangle collisionArea;
 
     public boolean collisionOn = false;
+
+    public int getSpriteCounter() {
+
+        return spriteCounter;
+    }
+
+    public void setSpriteCounter(int value) {
+
+        spriteCounter = value;
+    }
+
+    public void incrementSpriteCounter() {
+
+        spriteCounter++;
+    }
+
+    public int getSpriteNum() {
+
+        return spriteNum;
+    }
+
+    public void setSpriteNum (int value) {
+
+        spriteNum = value;
+    }
+
+    public Rectangle getCollisionArea() {
+
+        return collisionArea;
+    }
+
+    public void setCollisionArea(int x, int y, int width, int height) {
+
+        collisionArea = new Rectangle(x, y, width, height);
+    }
 }

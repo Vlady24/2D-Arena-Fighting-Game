@@ -10,17 +10,17 @@ import main.GamePanel;
 
 public class BlockManager {
 
-    GamePanel gp;
-    Block[] block;
+    private GamePanel gp;
+    private Block[] block;
 
-    public int[][] mapBlockNum;
+    private int[][] mapBlockNum;
 
     public BlockManager(GamePanel gp) {
 
         this.gp = gp;
 
         block = new Block[4];
-        mapBlockNum = new int[gp.getMaxScreenRow()][gp.getMaxScreenCol()];
+        mapBlockNum = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
 
         getBlockImage();
         loadMap();
@@ -67,16 +67,19 @@ public class BlockManager {
             while (col < gp.getMaxScreenCol() && row < gp.getMaxScreenRow()) {
 
                 String line = br.readLine();
+                String[] numbers = line.split(" "); // Reading only the numbers from text file
 
                 while (col < gp.getMaxScreenCol()) {
 
-                    String[] numbers = line.split(" "); // Reading only the numbers from text file
+                    
 
                     int num = Integer.parseInt(numbers[col]);
+                    System.out.print(num + " ");
 
-                    mapBlockNum[row][col] = num;
+                    mapBlockNum[col][row] = num;
                     col++;
                 }
+                System.out.println();
                 
                 if (col == gp.getMaxScreenCol()) {
 
@@ -102,7 +105,7 @@ public class BlockManager {
 
         while (col < gp.getMaxScreenCol() && row < gp.getMaxScreenRow()) {
 
-            int blockNum = mapBlockNum[row][col];   
+            int blockNum = mapBlockNum[col][row];   
 
             g2.drawImage(block[blockNum].getImage(),
                                                     x, y, gp.getTileSize(), gp.getTileSize(), null);
@@ -118,5 +121,15 @@ public class BlockManager {
             
         }
 
+    }
+
+    public Block getBlockAtIndex(int tileNum) {
+
+        return block[tileNum];
+    }
+
+    public int getmapBlockNumAtIndexes(int i, int j) {
+
+        return mapBlockNum[i][j];
     }
 }

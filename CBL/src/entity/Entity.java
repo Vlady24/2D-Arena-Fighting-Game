@@ -8,8 +8,8 @@ public class Entity {
     public int x;
     public int y;
     public int speed;
-    private int spriteCounter = 0; // trb private sau nu??
-    private int spriteNum = 1;
+    protected int spriteCounter = 0; // trb private sau nu??
+    protected int spriteNum = 1;
 
     // SPRITES
     public BufferedImage up1;
@@ -26,31 +26,6 @@ public class Entity {
     private Rectangle collisionArea;
 
     public boolean collisionOn = false;
-
-    public int getSpriteCounter() {
-
-        return spriteCounter;
-    }
-
-    public void setSpriteCounter(int value) {
-
-        spriteCounter = value;
-    }
-
-    public void incrementSpriteCounter() {
-
-        spriteCounter++;
-    }
-
-    public int getSpriteNum() {
-
-        return spriteNum;
-    }
-
-    public void setSpriteNum (int value) {
-
-        spriteNum = value;
-    }
 
     public Rectangle getCollisionArea() {
 

@@ -74,12 +74,10 @@ public class BlockManager {
                     
 
                     int num = Integer.parseInt(numbers[col]);
-                    System.out.print(num + " ");
 
                     mapBlockNum[col][row] = num;
                     col++;
                 }
-                System.out.println();
                 
                 if (col == gp.getMaxScreenCol()) {
 

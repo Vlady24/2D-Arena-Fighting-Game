@@ -16,7 +16,8 @@ public class CollisionChecker {
         int entityLeftX = entity.x + entity.getCollisionArea().x;
         int entityRightX = entity.x + entity.getCollisionArea().x + entity.getCollisionArea().width;
         int entityTopY = entity.y + entity.getCollisionArea().y;
-        int entityBottomY = entity.y + entity.getCollisionArea().y + entity.getCollisionArea().height;
+        int entityBottomY = entity.y + entity.getCollisionArea().y 
+                                                                + entity.getCollisionArea().height;
 
         int entityLeftCol = entityLeftX / gp.getTileSize();
         int entityRightCol = entityRightX / gp.getTileSize();

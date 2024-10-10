@@ -80,18 +80,18 @@ public class Player extends Entity {
                         break;
                 }
             }
-            incrementSpriteCounter();
-            if (getSpriteCounter() > 15) {
-                if (getSpriteNum() == 1) {
+            spriteCounter++;
+            if (spriteCounter > 15) {
+                if (spriteNum == 1) {
 
-                    setSpriteNum(2);
+                    spriteNum = 2;
 
-                } else if (getSpriteNum() == 2) {
+                } else if (spriteNum == 2) {
 
-                    setSpriteNum(1);
+                    spriteNum = 1;
                 }
                 
-                setSpriteCounter(0);
+                spriteCounter = 0;
             }
 
         }
@@ -105,36 +105,36 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                if (getSpriteNum() == 1) {
+                if (spriteNum == 1) {
                     image = up1;
-                } else if (getSpriteNum() == 2) {
+                } else if (spriteNum == 2) {
                     image = up2;
                 }
                     
                 break;
         
             case "down":
-                if (getSpriteNum() == 1) {
+                if (spriteNum == 1) {
                     image = down1;
-                } else if (getSpriteNum() == 2) {
+                } else if (spriteNum == 2) {
                     image = down2;
                 }
 
                 break;
             
             case "left":
-                if (getSpriteNum() == 1) {
+                if (spriteNum == 1) {
                     image = left1;
-                } else if (getSpriteNum() == 2) {
+                } else if (spriteNum == 2) {
                     image = left2;
                 }
                 
                 break;
 
             case "right":
-                if (getSpriteNum() == 1) {
+                if (spriteNum == 1) {
                     image = right1;
-                } else if (getSpriteNum() == 2) {
+                } else if (spriteNum == 2) {
                     image = right2;
                 }
 

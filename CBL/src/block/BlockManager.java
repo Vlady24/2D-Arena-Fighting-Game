@@ -19,7 +19,7 @@ public class BlockManager {
 
         this.gp = gp;
 
-        block = new Block[4];
+        block = new Block[11];
         mapBlockNum = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
 
         getBlockImage();
@@ -32,22 +32,47 @@ public class BlockManager {
             
             block[0] = new Block();
             block[0].setImage(ImageIO.read(getClass().getResourceAsStream(
-                                                                    "/mapblocks/stoneblock.png")));
+                                                                    "/mapblocks/0stone.png")));
 
-            block[1] = new Block();
+            block[1] = new Block(true);
             block[1].setImage(ImageIO.read(getClass().getResourceAsStream(
-                                                                    "/mapblocks/wallblock.png")));
-            block[1].setCollision(true);
+                                                                    "/mapblocks/1wall.png")));
 
-            block[2] = new Block();
+            block[2] = new Block(true);
             block[2].setImage(ImageIO.read(getClass().getResourceAsStream(
-                                                                    "/mapblocks/lavablock.png")));
-            block[2].setCollision(true);
+                                                                    "/mapblocks/2lava.png")));
 
-            block[3] = new Block();
+            block[3] = new Block(true);
             block[3].setImage(ImageIO.read(getClass().getResourceAsStream(
-                                                                    "/mapblocks/deadtree.png")));
-            block[3].setCollision(true);
+                                                                    "/mapblocks/3fenceoriz.png")));
+
+            block[4] = new Block(true);
+            block[4].setImage(ImageIO.read(getClass().getResourceAsStream(
+                                                                    "/mapblocks/4fencevert.png")));
+            
+            block[5] = new Block(true);
+            block[5].setImage(ImageIO.read(getClass().getResourceAsStream(
+                                                                    "/mapblocks/5fenceleft.png")));
+
+            block[6] = new Block(true);
+            block[6].setImage(ImageIO.read(getClass().getResourceAsStream(
+                                                                    "/mapblocks/6fenceright.png")));
+
+            block[7] = new Block(true);
+            block[7].setImage(ImageIO.read(getClass().getResourceAsStream(
+                                                                    "/mapblocks/7walltorch.png")));
+
+            block[8] = new Block();
+            block[8].setImage(ImageIO.read(getClass().getResourceAsStream(
+                                                                    "/mapblocks/8bridgedown.png")));
+
+            block[9] = new Block();
+            block[9].setImage(ImageIO.read(getClass().getResourceAsStream(
+                                                                    "/mapblocks/9bridgeup.png")));
+
+            block[10] = new Block(true);
+            block[10].setImage(ImageIO.read(getClass().getResourceAsStream(
+                                                                    "/mapblocks/10coffin.png")));
 
         } catch (IOException e) {
             e.printStackTrace();

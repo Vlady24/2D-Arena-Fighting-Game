@@ -7,6 +7,15 @@ public class Block {
     private BufferedImage image;
     private boolean collision = false;
 
+    public Block() {
+        
+    }
+
+    public Block(boolean collision) {
+
+        this.collision = collision;
+    }
+    
     public void setImage(BufferedImage image) {
 
         this.image = image;

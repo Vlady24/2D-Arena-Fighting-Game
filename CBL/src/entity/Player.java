@@ -6,17 +6,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import main.GamePanel;
-import main.Movement;
+import main.KeyHandler;
 
 public class Player extends Entity {
     
     private GamePanel gp;
-    private Movement movementHandler;
+    private KeyHandler keyHandler;
 
-    public Player(GamePanel gp, Movement movementHandler) {
+    public Player(GamePanel gp, KeyHandler keyHandler) {
 
         this.gp = gp;
-        this.movementHandler = movementHandler;
+        this.keyHandler = keyHandler;
 
         setDefaultValues();
         getPlayerImage();
@@ -33,22 +33,22 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (movementHandler.getUpPressed() || movementHandler.getDownPressed() 
-            || movementHandler.getLeftPressed() || movementHandler.getRightPressed()) {
+        if (keyHandler.getUpPressed() || keyHandler.getDownPressed() 
+            || keyHandler.getLeftPressed() || keyHandler.getRightPressed()) {
 
-            if (movementHandler.getUpPressed()) {
+            if (keyHandler.getUpPressed()) {
 
                 direction = "up";
             }  
-            if (movementHandler.getDownPressed()) {
+            if (keyHandler.getDownPressed()) {
                 
                 direction = "down";
             }  
-            if (movementHandler.getLeftPressed()) {
+            if (keyHandler.getLeftPressed()) {
 
                 direction = "left";
             }  
-            if (movementHandler.getRightPressed()) {
+            if (keyHandler.getRightPressed()) {
 
                 direction = "right";
             }
@@ -148,14 +148,14 @@ public class Player extends Entity {
 
         try {
 
-            up1 = ImageIO.read(getClass().getResourceAsStream("/playerone/1up1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/playerone/1up2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/playerone/1down1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/playerone/1down2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/playerone/1left1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/playerone/1left2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/playerone/1right1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/playerone/1right2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/playerone/up1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/playerone/up2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/playerone/down1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/playerone/down2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/playerone/left1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/playerone/left2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/playerone/right1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/playerone/right2.png"));
 
             
         } catch (IOException e) {

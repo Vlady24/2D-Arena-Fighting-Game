@@ -12,28 +12,45 @@ public class GamePanel extends JPanel implements Runnable {
     private final int scale = 3;
 
     private final int tileSize = originalTileSize * scale; // 48 x 48 tile
-    private final int maxScreenCol = 16; // 4:3
-    private final int maxScreenRow = 12; // ratio
-    private final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    private final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    private final int maxScreenCol = 24; // 4:3
+    private final int maxScreenRow = 18; // ratio
+    protected final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    protected final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // FPS
     private final int fps = 60; // Framerate per second
     private final Color backgroundColor = new Color(71, 35, 14); // Background color
 
+    // SYSTEM
     private CollisionChecker collisionChecker = new CollisionChecker(this);
     private BlockManager blockM = new BlockManager(this);
+    private KeyHandler keyHandler = new KeyHandler(this);
+    private Player player = new Player(this, keyHandler);
+    private UI ui = new UI(this);
     private Thread gameThread;
-    private Movement movementHandler = new Movement();
-    private Player player = new Player(this, movementHandler);
 
+    // GAME STATE
+    protected int gameState;
+    protected final int playState = 1;
+    protected final int pauseState = 2;
+
+    /**
+     * GamePanel class CONSTRUCTOR. 
+     * 
+     */
     public GamePanel() {
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // Create the Panel
         this.setBackground(backgroundColor);
         this.setDoubleBuffered(true); // Improving game's rendering performance
-        this.addKeyListener(movementHandler);
+        this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        this.setupGame();
+    }
+
+    public void setupGame() {
+
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -75,7 +92,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
 
-        player.update();
+        if (gameState == playState) {
+
+            player.update();
+        }
+
+        if (gameState == pauseState) {
+
+
+        }
+        
     }
 
     public void paintComponent(Graphics g) {
@@ -86,6 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         blockM.draw(g2);
         player.draw(g2);
+        ui.draw(g2);
         g2.dispose();
         
     }

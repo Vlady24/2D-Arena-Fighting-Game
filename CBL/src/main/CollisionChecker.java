@@ -2,6 +2,9 @@ package main;
 
 import entity.Entity;
 
+/**
+ * Class for checking the collision.
+ */
 public class CollisionChecker {
 
     private GamePanel gp;
@@ -63,7 +66,7 @@ public class CollisionChecker {
                 
                 break;
             case "left":
-                entityLeftCol = (entityLeftX - entity.speed) / gp.getTileSize();
+                entityLeftCol = (entityLeftX + entity.speed) / gp.getTileSize();
 
                 // Up-left corner of hitbox
                 tileNum1 = gp.getBlockM().getmapBlockNumAtIndexes(entityLeftCol, entityTopRow);
@@ -79,7 +82,7 @@ public class CollisionChecker {
                 
                 break;
             case "right":
-                entityRightCol = (entityRightX + entity.speed) / gp.getTileSize();
+                entityRightCol = (entityRightX - entity.speed) / gp.getTileSize();
 
                 // Up-right corner of hitbox
                 tileNum1 = gp.getBlockM().getmapBlockNumAtIndexes(entityRightCol, entityTopRow);

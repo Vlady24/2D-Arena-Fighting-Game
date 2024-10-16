@@ -1,8 +1,12 @@
 package main;
 
 import block.BlockManager;
+import entity.Entity;
+import entity.Monster;
 import entity.Player;
 import java.awt.*;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -14,23 +18,78 @@ public class GamePanel extends JPanel implements Runnable {
     private final int tileSize = originalTileSize * scale; // 48 x 48 tile
     private final int maxScreenCol = 24; // 4:3
     private final int maxScreenRow = 18; // ratio
-    protected final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    protected final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    protected final int screenWidth = tileSize * maxScreenCol; // 1152 pixels
+    protected final int screenHeight = tileSize * maxScreenRow; // 864 pixels
 
     // FPS
     private final int fps = 60; // Framerate per second
-    private final Color backgroundColor = new Color(71, 35, 14); // Background color
 
     // SYSTEM
     private CollisionChecker collisionChecker = new CollisionChecker(this);
     private BlockManager blockM = new BlockManager(this);
+    //private AssetSetter aSetter = new AssetSetter(this);
     private KeyHandler keyHandler = new KeyHandler(this);
-    private Player player = new Player(this, keyHandler);
-    private UI ui = new UI(this);
+    protected UI ui = new UI(this);
     private Thread gameThread;
+
+    // ENTITY
+    protected Player player = new Player(this, keyHandler);
+    public ArrayList<ArrayList<Monster>> waves;
+    public ArrayList<Monster> wave1;
+    public ArrayList<Monster> wave2;
+    public ArrayList<Monster> wave3;
+    public ArrayList<Monster> wave4;
+    public ArrayList<Monster> wave5; 
+    //= new ArrayList<>() {
+
+//     {
+//         // WAVE 1
+//         add(new ArrayList<Monster>() {
+//             {
+//                 add(new Monster(Main.gamePanel, 415, 160));
+//                 add(new Monster(Main.gamePanel, 415 + 115, 160));
+//                 add(new Monster(Main.gamePanel, 415 + 115 * 2, 160));
+//             }
+//         });
+// 
+//         // WAVE 2
+//         add(new ArrayList<Monster>() {
+//             {
+//                 add(new Monster(Main.gamePanel, 415 + 115, 160 + 110));
+//             }
+//         });
+// 
+//         // WAVE 3
+//         add(new ArrayList<Monster>() {
+//             {
+//                 add(new Monster(Main.gamePanel, 415, 160 + 110));
+//             }
+//         });
+// 
+//         // WAVE 4
+//         add(new ArrayList<Monster>() {
+//             {
+//                 add(new Monster(Main.gamePanel, 415 + 115 * 2, 160 + 110));
+//             }
+//         });
+// 
+//         // WAVE 5
+//         add(new ArrayList<Monster>() {
+//             {
+//                 add(new Monster(Main.gamePanel, 415 + 115, 160 + 110 * 2));
+//             }
+//         });
+//
+//     }
+// };
+
+    // WAVE STATUS
+    public int waveNumber = 1;
+    private boolean waveCompleted = true;
 
     // GAME STATE
     protected int gameState;
+    protected final int titleState = 0;
     protected final int playState = 1;
     protected final int pauseState = 2;
 
@@ -41,7 +100,6 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel() {
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); // Create the Panel
-        this.setBackground(backgroundColor);
         this.setDoubleBuffered(true); // Improving game's rendering performance
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
@@ -50,7 +108,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
 
-        gameState = playState;
+        //aSetter.setMonster();
+        gameState = titleState;
+        setWaves();
     }
 
     public void startGameThread() {
@@ -94,12 +154,18 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (gameState == playState) {
 
+            // PLAYER UPDATE
             player.update();
+
+            // MONSTER UPDATE
+   //       for (int i = 0; i < wave.size(); i++) {
+
+   //           wave.get(i).update(); // posibil gresit
+   //       }
         }
 
         if (gameState == pauseState) {
-
-
+            // nothing
         }
         
     }
@@ -110,11 +176,63 @@ public class GamePanel extends JPanel implements Runnable {
         
         Graphics2D g2 = (Graphics2D) g;
 
-        blockM.draw(g2);
-        player.draw(g2);
-        ui.draw(g2);
-        g2.dispose();
+        //TITLE SCREEN
+        if (gameState == titleState) {
+
+            ui.draw(g2);
+        } else {
+            blockM.draw(g2);
+            player.draw(g2);
+            for (int i = 0; i < waves.size(); i++) {
+                for (int j = 0; j < waves.get(i).size(); j++) {
+
+                    waves.get(i).get(j).draw(g2);
+                }
+            }
+                        
+            ui.draw(g2);
+            g2.dispose();
+        }
+
         
+        
+    }
+
+    public void setWaves() {
+
+        waves = new ArrayList<ArrayList<Monster>>();
+
+        // WAVE 1
+        wave1 = new ArrayList<Monster>();
+        wave1.add(new Monster(this, 415, 160));
+        wave1.add(new Monster(this, 415 + 115, 160));
+        wave1.add(new Monster(this, 415 + 115 * 2, 160));
+
+        waves.add(wave1);
+    
+        // WAVE 2
+        wave2 = new ArrayList<Monster>();
+        wave2.add(new Monster(this, 415 + 115, 160 + 110));
+
+        waves.add(wave2);
+    
+        // WAVE 3
+        wave3 = new ArrayList<Monster>();
+        wave3.add(new Monster(this, 415, 160 + 110));
+
+        waves.add(wave3);
+    
+        // WAVE 4
+        wave4 = new ArrayList<Monster>();
+        wave4.add(new Monster(this, 415 + 115 * 2, 160 + 110));
+
+        waves.add(wave4);
+    
+        // WAVE 5
+        wave5 = new ArrayList<Monster>();
+        wave5.add(new Monster(this, 415 + 115, 160 + 110 * 2));
+        
+        waves.add(wave5);
     }
     
     /**
@@ -141,6 +259,14 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public int getMaxScreenRow() {
         return maxScreenRow;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
     }
 
     public CollisionChecker getCollisionChecker() {

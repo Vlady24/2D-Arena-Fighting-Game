@@ -30,6 +30,34 @@ public class KeyHandler implements KeyListener {
         
         int code = e.getKeyCode();
 
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+
+            if (code == KeyEvent.VK_DOWN) {
+
+                gp.ui.setCommandNum(1);
+            }
+
+            if (code == KeyEvent.VK_UP) {
+
+                gp.ui.setCommandNum(0);
+            }
+
+            if (code == KeyEvent.VK_ENTER) {
+
+                if (gp.ui.getCommandNum() == 0) {
+
+                    gp.gameState = gp.playState;
+                }
+
+                if (gp.ui.getCommandNum() == 1) {
+
+                    System.exit(0);
+                }
+            }
+        }
+
+        // PLAY STATE
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -46,6 +74,7 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
 
+        // PAUSE STATE
         if (code == KeyEvent.VK_ESCAPE) {
             
             if (gp.gameState == gp.playState) {
@@ -55,6 +84,12 @@ public class KeyHandler implements KeyListener {
             } else if (gp.gameState == gp.pauseState) {
 
                 gp.gameState = gp.playState;
+            }
+        }
+
+        if (code == KeyEvent.VK_ENTER) {
+            if(gp.gameState == gp.pauseState) {
+                System.exit(0);
             }
         }
     }

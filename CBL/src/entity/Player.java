@@ -25,10 +25,18 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        x = 150;
-        y = 250;
+        // STARTING COORDINATES
+        x = 535;
+        y = 765;
+
+        // PLAYER SPEED
         speed = 4;
+
         direction = "down";
+
+        // PLAYER LIFE
+        setMaxLife(6);
+        setLife(getMaxLife());
     }
 
     public void update() {
@@ -79,6 +87,7 @@ public class Player extends Entity {
                         x = x + speed;
                         break;
                 }
+                //System.out.println(x + " " + y);
             }
             spriteCounter++;
             if (spriteCounter > 15) {
@@ -141,7 +150,7 @@ public class Player extends Entity {
                 break;
         }
         
-        g2.drawImage(image, x, y, gp.getTileSize(), gp.getTileSize(), null);
+        g2.drawImage(image, x, y, gp.getTileSize() + 16, gp.getTileSize() + 16, null);
     }
 
     public void getPlayerImage() {
